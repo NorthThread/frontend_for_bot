@@ -11,6 +11,7 @@
       <!-- Navbar with searchbar -->
       <v-responsive max-width="400">
         <v-text-field
+          class="changeColor"
           style="padding-top:5%"
           v-model="query"
           dense
@@ -23,66 +24,27 @@
         </v-text-field>
       </v-responsive>
     </v-app-bar>
-    <v-navigation-drawer app clipped color="#1E1E1E">
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="title" style="color:white;">
-            {{ server }}
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
+    <queue> </queue>
+    <controls> </controls>
 
-      <v-divider light></v-divider>
-
-      <v-list v-if="server === 'Not connected'" dense nav>
-        <v-list-item v-for="item in items" :key="item.title" dark>
-          <v-list-item-content color="white">
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    
-    <v-main> </v-main>
-    <v-footer app inset color="transparent" >
-      <v-app-bar color="#424242" rounded inset clipped right max-width="30%">
-        <v-btn
-          color="grey"
-          width="33%"
-          @click="play(true)"
-          rounded
-        >
-          <v-icon>mdi-play</v-icon>
-        </v-btn>
-        <v-btn color="grey" width="33%" @click="play(false)" rounded>
-          <v-icon>mdi-pause</v-icon>
-        </v-btn>
-        <v-btn color="grey" width=33% rounded>
-          <v-icon>
-            mdi-skip-next
-          </v-icon>
-        </v-btn>
-        
-      </v-app-bar>
-    </v-footer>
+    <v-main style="background:#1E1E1E">
+      <searchResults> </searchResults>
+    </v-main>
   </v-app>
 </template>
 
 <script>
+import queue from "./components/queue";
+import controls from "./components/controls";
+import searchResults from "./components/searchResults";
+
 export default {
   name: "App",
 
-  components: {},
+  components: { queue, controls, searchResults },
 
   data: () => ({
     query: "",
-    items: [
-      { title: "Click Me 1" },
-      { title: "Click Me 3" },
-      { title: "Click Me 4" },
-      { title: "Click Me 2" }
-    ],
-    server: "Not connected",
     loggedIn: false
     //
   }),
@@ -93,3 +55,10 @@ export default {
   }
 };
 </script>
+
+<style>
+.changeColor {
+  color: black;
+  opacity: 1;
+}
+</style>
