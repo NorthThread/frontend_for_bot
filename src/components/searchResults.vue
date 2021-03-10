@@ -10,43 +10,37 @@
 
     <v-divider></v-divider>
     <v-list-item
-      v-for="item in items"
-      :key="item.title"
+      v-for="song in this.  $store.state.searchList.songs"
+      :key="song.videoId"
       dark
       outlined
       class="mb-12"
     >
       <v-img
-        :src="
-          ''
-        "
+        :src="song.thumbnails.url"
         max-height="10%"
         max-width="15%"
       ></v-img>
 
       <v-list-item-content color="white">
-        <v-list-item-title class="ml-8">{{ item.title }}</v-list-item-title>
+        <v-list-item-title class="ml-8">{{ song.name }}</v-list-item-title>
       </v-list-item-content>
-      <v-btn background="white">Add to queue</v-btn>
+      <v-btn background-color="white">Add to queue</v-btn>
     </v-list-item>
   </v-list>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
-  data: () => ({
-    items: [
-      { title: "Title 1" },
-      { title: "Title 3" },
-      { title: "Title 4" },
-      { title: "Title 2" },
-      { title: "Title 5" },
-      { title: "Title 6" },
-      { title: "Title 7" },
-      { title: "Title 8" },
-      { title: "Title 9" }
-    ]
-  })
+  data() {
+    return {
+      result: this.$store.state.searchList
+    };
+  },
+  methods: {
+    ...mapGetters(["getSearchList"])
+  }
 };
 </script>
 

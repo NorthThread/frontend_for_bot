@@ -11,18 +11,20 @@
       <!-- Navbar with searchbar -->
       <v-responsive max-width="400">
         <v-text-field
+          v-model="query"
           class="changeColor"
           style="padding-top:5%"
-          v-model="query"
           dense
           background-color="white"
           color="black"
           rounded
           placeholder="Search"
-          @keydown.enter="test(query)"
         >
         </v-text-field>
       </v-responsive>
+      <v-btn small rounded @click="search(query)">
+        search
+      </v-btn>
     </v-app-bar>
     <queue> </queue>
     <controls> </controls>
@@ -37,20 +39,26 @@
 import queue from "./components/queue";
 import controls from "./components/controls";
 import searchResults from "./components/searchResults";
+import { mapActions } from "vuex";
 
 export default {
   name: "App",
 
   components: { queue, controls, searchResults },
 
-  data: () => ({
-    query: "",
-    loggedIn: false
+  data() {
+    return {
+      query: "",
+      loggedIn: false
+    };
     //
-  }),
+  },
   methods: {
-    test() {
-      alert("Hey");
+    ...mapActions(["searchSongs"]),
+
+    search(term) {
+      console.log(term)
+      this.searchSongs(term);
     }
   }
 };
